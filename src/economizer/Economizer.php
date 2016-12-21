@@ -19,5 +19,64 @@
  
  namespace economizer;
  
- class Economizer {
- }
+use pocketmine\plugin\Plugin;
+
+use economizer\transistor\EconomyAPI;
+
+class Economizer {
+
+	const DEFAULT_API = "EconomyAPI";
+
+	/** @var Transistor */
+	protected $transistor;
+
+	/** @var Plugin */
+	protected $main;
+
+	public static $transistors = [
+		self::DEFAULT_API => EconomyAPI::class
+	];
+
+	public function __construct(Plugin $plugin, Transistor $transistor = null) {
+		$this->main = $plugin;
+		if($transistor !== null) $this->transistor = $transistor;
+	}
+
+	/**
+	 * Returns true if transistor is attached to api plugin which is ready to serve
+	 * @return bool
+	 */
+	public function ready() : bool {
+		if(!$this->transistor) return false;
+		return $this->transistor->ready();
+	}
+
+	public function setTransistor(Transistor $transistor) {
+		$this->transistor = $transistor;
+	} 
+
+	/**
+	 * @return Transistor|null
+	 */
+	public function getTransistor() {
+		return $this->transistor;
+	}
+
+	/**
+	 * Makes code shorter
+	 */
+	public function __call($method, $arguments) {
+		if(!method_exists($this, $method)) {
+			if(!$this->transistor) return;
+			if(method_exists($this->transistor, $method)) {
+				return call_user_func_array([$this->transistor, $method], $arguments);
+			}
+		}
+	}
+
+	public static function getTransistorFor(Plugin $plugin) {
+		if(!isset(self::$transistors[$plugin->getName()])) return null;
+		return new self::$transistors[$plugin->getName()]($plugin);
+	}
+
+}
