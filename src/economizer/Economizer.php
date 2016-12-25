@@ -22,10 +22,13 @@
 use pocketmine\plugin\Plugin;
 
 use economizer\transistor\EconomyAPI;
+use economizer\transistor\PocketMoney;
 
 class Economizer {
 
-	const DEFAULT_API = "EconomyAPI";
+	const ECONOMYAPI_API	= "EconomyAPI"
+	const POCKETMONEY_API 	= "PocketMoney";
+	const DEFAULT_API 		= self::ECONOMYAPI_API;
 
 	/** @var Transistor */
 	protected $transistor;
@@ -34,7 +37,8 @@ class Economizer {
 	protected $main;
 
 	public static $transistors = [
-		self::DEFAULT_API => EconomyAPI::class
+		self::DEFAULT_API 		=> EconomyAPI::class,
+		self::POCKETMONEY_API 	=> PocketMoney::class
 	];
 
 	public function __construct(Plugin $plugin, Transistor $transistor = null) {

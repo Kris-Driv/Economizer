@@ -28,26 +28,49 @@ class PocketMoney extends Transistor {
 	public function __construct(PMAPI $api) {
 		parent::__construct($api);
 	}
-  
+  	
+  	/**
+  	 * Returns false if account is not registered
+     *
+  	 * @param Player|string $player
+  	 * @return int|false
+  	 */
 	public function balance($player) {
 		return $this->getAPI()->getMoney($player instanceof Player ? $player->getName() : $player);
 	}
-  
+  	
+  	/**
+  	 * @param Player|string $player
+  	 * @param array $params = []
+  	 * @return bool
+  	 */
 	public function setMoney($player, $money, array $params = []) {
 		return $this->getAPI()->setMoney($player instanceof Player ? $player->getName() : $player, $money);
 	}
-  
+  	
+  	/**
+  	 * @param Player|string $player
+  	 * @param int $money
+  	 * @param array $params = [] accepts "callEvent"
+  	 * @return bool
+  	 */
 	public function addMoney($player, $money, array $params = []) {
-    if(isset($params["callEvent"])) {
-      return $this->getAPI()->grantMoney($player instanceof Player ? $player->getName() : $player, $money, (bool) $params["callEvent"]);
-    }
+	    if(isset($params["callEvent"])) {
+	      return $this->getAPI()->grantMoney($player instanceof Player ? $player->getName() : $player, $money, (bool) $params["callEvent"]);
+	    }
 		return $this->getAPI()->grantMoney($player instanceof Player ? $player->getName() : $player, $money);
 	}
-  
+  	
+  	/**
+  	 * @param Player|string $player
+  	 * @param int $money
+  	 * @param array $params = [] accepts "callEvent"
+  	 * @return bool
+  	 */
 	public function takeMoney($player, $money, array $params = []) {
 		if(isset($params["callEvent"])) {
-      return $this->getAPI()->grantMoney($player instanceof Player ? $player->getName() : $player, -$money, (bool) $params["callEvent"]);
-    }
+      		return $this->getAPI()->grantMoney($player instanceof Player ? $player->getName() : $player, -$money, (bool) $params["callEvent"]);
+    	}
 		return $this->getAPI()->grantMoney($player instanceof Player ? $player->getName() : $player, -$money);
 	}
   
