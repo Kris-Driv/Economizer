@@ -26,7 +26,7 @@ use economizer\transistor\PocketMoney;
 
 class Economizer {
 
-	const ECONOMYAPI_API	= "EconomyAPI"
+	const ECONOMYAPI_API	= "EconomyAPI";
 	const POCKETMONEY_API 	= "PocketMoney";
 	const DEFAULT_API 		= self::ECONOMYAPI_API;
 
