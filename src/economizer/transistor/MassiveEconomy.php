@@ -20,12 +20,12 @@
 namespace economizer\transistor;
 
 use pocketmine\Player;
-use PocketMoney\PocketMoney as PMAPI;
+use MassiveEconomy\MassiveEconomy as MEAPI;
 use economizer\Transistor;
  
-class PocketMoney extends Transistor {
+class MassiveEconomy extends Transistor {
 
-	public function __construct(PMAPI $api) {
+	public function __construct(MEAPI $api) {
 		parent::__construct($api);
 	}
   	
@@ -49,27 +49,21 @@ class PocketMoney extends Transistor {
   	/**
   	 * @param Player|string $player
   	 * @param int $money
-  	 * @param array $params = [] accepts "callEvent"
-  	 * @return bool
+  	 * @param array $params = []
+  	 * @return int|false if player is not registered
   	 */
 	public function addMoney($player, $money, array $params = []) {
-	    if(isset($params["callEvent"])) {
-	      return $this->getAPI()->grantMoney($player instanceof Player ? $player->getName() : $player, $money, (bool) $params["callEvent"]);
-	    }
-		return $this->getAPI()->grantMoney($player instanceof Player ? $player->getName() : $player, $money);
+    return $this->getAPI()->payPlayer($player instanceof Player ? $player->getName() : $player, $money);
 	}
   	
   	/**
   	 * @param Player|string $player
   	 * @param int $money
-  	 * @param array $params = [] accepts "callEvent"
-  	 * @return bool
+  	 * @param array $params = []
+  	 * @return int
   	 */
 	public function takeMoney($player, $money, array $params = []) {
-		if(isset($params["callEvent"])) {
-      		return $this->getAPI()->grantMoney($player instanceof Player ? $player->getName() : $player, -$money, (bool) $params["callEvent"]);
-    	}
-		return $this->getAPI()->grantMoney($player instanceof Player ? $player->getName() : $player, -$money);
+    return $this->getAPI()->takeMoney($player, $amount);
 	}
   
 	public function ready() : bool {
@@ -78,7 +72,7 @@ class PocketMoney extends Transistor {
 	}
 
 	public function getMoneyUnit(){
-        return trim($this->getAPI()->getFormattedMoney(' '));
+        return $this->getAPI()->getMoneySymbol();
     }
 
 }
