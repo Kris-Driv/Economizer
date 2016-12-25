@@ -31,22 +31,45 @@ class EconomyAPI extends Transistor {
 		parent::__construct($api);
 	}
 
+	/**
+	 * Get player money
+	 * @param Player|string $player
+	 * @return int
+	 */
 	public function balance($player) {
 		return $this->getAPI()->myMoney($player);
 	}
 
+	/**
+	 * Set player money.
+	 * @param Player|string $player
+	 * @param int $money
+	 * @param array $params = [], accepts "force" boolean and "issuer" Player|string
+	 */
 	public function setMoney($player, $money, array $params = []) {
 		$force = $params["force"] ?? false;
 		$issuer = $params["issuer"] ?? null;
 		return $this->getAPI()->setMoney($player, $money, $force, $issuer);
 	}
 
+	/**
+	 * Add money player current balance.
+	 * @param Player|string $player
+	 * @param int $money
+	 * @param array $params = [], accepts "force" boolean and "issuer" Player|string
+	 */
 	public function addMoney($player, $money, array $params = []) {
 		$force = $params["force"] ?? false;
 		$issuer = $params["issuer"] ?? null;
 		return $this->getAPI()->addMoney($player, $money, $force, $issuer);
 	}
 
+	/**
+	 * Take player money.
+	 * @param Player|string $player
+	 * @param int $money
+	 * @param array $params = [], accepts "force" boolean and "issuer" Player|string
+	 */
 	public function takeMoney($player, $money, array $params = []) {
 		$force = $params["force"] ?? false;
 		$issuer = $params["issuer"] ?? null;
