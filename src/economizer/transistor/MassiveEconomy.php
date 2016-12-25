@@ -20,12 +20,12 @@
 namespace economizer\transistor;
 
 use pocketmine\Player;
-use MassiveEconomy\MassiveEconomy as MEAPI;
+use MassiveEconomy\MassiveEconomyAPI;
 use economizer\Transistor;
  
 class MassiveEconomy extends Transistor {
 
-	public function __construct(MEAPI $api) {
+	public function __construct(MassiveEconomyAPI $api) {
 		parent::__construct($api);
 	}
   	
@@ -63,11 +63,11 @@ class MassiveEconomy extends Transistor {
   	 * @return int
   	 */
 	public function takeMoney($player, $money, array $params = []) {
-    return $this->getAPI()->takeMoney($player, $amount);
+    return $this->getAPI()->takeMoney($player, $money);
 	}
   
 	public function ready() : bool {
-		if($this->getAPI() instanceof PMAPI && $this->getAPI()->isEnabled()) return true;
+		if($this->getAPI() instanceof MassiveEconomyAPI && $this->getAPI()->isEnabled()) return true;
 		return false;
 	}
 
