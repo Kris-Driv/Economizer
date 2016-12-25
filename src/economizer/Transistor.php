@@ -71,4 +71,11 @@ abstract class Transistor {
 		return $this->getAPI()->getName();
 	}
 
+    /**
+     * Return symbol of the money
+     * @return mixed
+     */
+	public function getMoneyUnit(){
+        return $this->getAPI()->getMoneyUnit();
+    }
 }
