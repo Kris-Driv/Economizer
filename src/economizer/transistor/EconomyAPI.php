@@ -57,5 +57,8 @@ class EconomyAPI extends Transistor {
 		if($this->getAPI() instanceof EAPI && $this->getAPI()->isEnabled()) return true;
 		return false;
 	}
-	
+
+	public function getMoneyUnit(){
+        return $this->getAPI()->getMonetaryUnit();
+    }
 }

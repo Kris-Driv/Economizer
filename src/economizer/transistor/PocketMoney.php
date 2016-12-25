@@ -78,5 +78,9 @@ class PocketMoney extends Transistor {
 		if($this->getAPI() instanceof PMAPI && $this->getAPI()->isEnabled()) return true;
 		return false;
 	}
-	
+
+	public function getMoneyUnit(){
+        return trim($this->getAPI()->getFormattedMoney(' '));
+    }
+
 }
