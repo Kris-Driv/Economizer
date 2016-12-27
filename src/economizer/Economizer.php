@@ -24,12 +24,14 @@ use pocketmine\plugin\Plugin;
 use economizer\transistor\EconomyAPI;
 use economizer\transistor\PocketMoney;
 use economizer\transistor\MassiveEconomy;
+use economizer\transistor\EssentialsPE;
 
 class Economizer {
 
 	const ECONOMY_API		= "EconomyAPI";
 	const POCKET_MONEY		= "PocketMoney";
-	const MASSIVE_ECONOMY 	= "MassiveEconomy";
+	const MASSIVE_ECONOMY 		= "MassiveEconomy";
+	const ESSENTIALSPE		= "EssentialsPE";
 	const DEFAULT_API		= self::ECONOMY_API;
 
 	/** @var Transistor */
@@ -41,7 +43,8 @@ class Economizer {
 	public static $transistors = [
 		self::ECONOMY_API		=> EconomyAPI::class,
 		self::POCKET_MONEY 		=> PocketMoney::class,
-		self::MASSIVE_ECONOMY 	=> MassiveEconomy::class
+		self::MASSIVE_ECONOMY 		=> MassiveEconomy::class,
+		self::ESSENTIALSPE		=> EssentialsPE::class
 	];
 
 	public function __construct(Plugin $plugin, Transistor $transistor = null) {
